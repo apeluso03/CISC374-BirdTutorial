@@ -15,6 +15,7 @@ public class LogicScript : MonoBehaviour
     public BirdScript bird;
     public PipeMoveScript pipeMove;
     public AudioSource scoreUp;
+    public AudioSource music;
 
     private List<PipeMoveScript> pipes = new List<PipeMoveScript>();
 
@@ -32,6 +33,7 @@ public class LogicScript : MonoBehaviour
     {
         LoadHighScore();
         SceneManager.LoadScene("Game");
+        //music.Play();
     }
 
     public void restartGame()
