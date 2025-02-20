@@ -14,6 +14,7 @@ public class LogicScript : MonoBehaviour
     public GameObject gameOverScreen;
     public BirdScript bird;
     public PipeMoveScript pipeMove;
+    public AudioSource scoreUp;
 
     private List<PipeMoveScript> pipes = new List<PipeMoveScript>();
 
@@ -22,6 +23,7 @@ public class LogicScript : MonoBehaviour
         if (bird.birdIsAlive)
         {
             playerScore += scoreToAdd;
+            scoreUp.Play();
             scoreText.text = playerScore.ToString();
         }
     }
