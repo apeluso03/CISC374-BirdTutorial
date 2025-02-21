@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PipeMoveScript : MonoBehaviour
 {
-    public float moveSpeed = 15;
+    public double moveSpeed = 8;
     public float deadZone = -50;
-    public float initialMoveSpeed;
+    public double initialMoveSpeed;
 
     private LogicScript logic;
 
@@ -21,7 +21,7 @@ public class PipeMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position + (Vector3.left * moveSpeed) * Time.deltaTime;
+        transform.position = transform.position + (Vector3.left * (float)moveSpeed) * Time.deltaTime;
 
         if (transform.position.x < deadZone)
         {

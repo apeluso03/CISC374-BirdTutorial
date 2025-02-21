@@ -11,9 +11,12 @@ public class PipeSpawnScript : MonoBehaviour
     public float heightOffset = 10;
     public BirdScript bird;
 
+    private LogicScript logic;
+
     // Start is called before the first frame update
     void Start()
     {
+        logic = FindObjectOfType<LogicScript>();
         spawnPipe();
     }
 
@@ -37,5 +40,15 @@ public class PipeSpawnScript : MonoBehaviour
         float lowestPoint = transform.position.y - heightOffset;
         GameObject newPipe = Instantiate(pipe, new Vector3(transform.position.x, Random.Range(lowestPoint, highestPoint), 0), transform.rotation);
         newPipe.layer = 2;
+
+        PipeMoveScript pipeMove = newPipe.GetComponent<PipeMoveScript>();
+        pipeMove.moveSpeed = pipeMove.initialMoveSpeed + logic.GetCurrSpeedIncrement();
+
+        logic.RegisterPipe(pipeMove);
+    }
+
+    public void UpdateSpawnRate(float newSpawnRate)
+    {
+        spawnRate = newSpawnRate;
     }
 }

@@ -30,7 +30,7 @@ public class BirdScript : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Game")
         {
-            if (Input.GetKeyDown(KeyCode.Space) && birdIsAlive)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && birdIsAlive)
             {
                 timer = 0;
                 myRigidBody.linearVelocity = Vector2.up * flapStrength; // Use velocity instead of linearVelocity

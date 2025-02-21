@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
-    public int playerScore;
+    public int playerScore = 0;
+    private double currSpeedIncrement = 0;
+    private float currSpawnRateDecrement = 0;
+    private const float defaultSpawnRate = 2f;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI highScoreText;
@@ -26,6 +29,9 @@ public class LogicScript : MonoBehaviour
             playerScore += scoreToAdd;
             scoreUp.Play();
             scoreText.text = playerScore.ToString();
+            if (playerScore % 5 == 0) {
+                IncreaseSpeedSpawned();
+            }
         }
     }
 
@@ -33,11 +39,20 @@ public class LogicScript : MonoBehaviour
     {
         LoadHighScore();
         SceneManager.LoadScene("Game");
-        //music.Play();
     }
 
     public void restartGame()
     {
+        currSpeedIncrement = 0;
+        currSpawnRateDecrement = 0;
+        ResetAllPipes();
+
+        PipeSpawnScript pipeSpawner = FindObjectOfType<PipeSpawnScript>();
+        if (pipeSpawner != null)
+        {
+            pipeSpawner.UpdateSpawnRate(defaultSpawnRate);
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -100,6 +115,34 @@ public class LogicScript : MonoBehaviour
         {
             pipe.moveSpeed = 0;
         }
+    }
+
+    private void IncreaseSpeedSpawned()
+    {
+        if (currSpeedIncrement < 5) {
+            currSpeedIncrement += 0.25;
+        }
+        if (currSpawnRateDecrement < 1) {
+            currSpawnRateDecrement += 0.05f;
+        }
+        foreach (var pipe in pipes)
+        {
+            pipe.moveSpeed += 0.25;
+        }
+
+        PipeSpawnScript pipeSpawner = FindObjectOfType<PipeSpawnScript>();
+        if (pipeSpawner != null)
+        {
+            pipeSpawner.UpdateSpawnRate(defaultSpawnRate - currSpawnRateDecrement);
+        }
+    }
+
+    public double GetCurrSpeedIncrement() {
+        return currSpeedIncrement;
+    }
+
+    public float GetCurrSpawnRateDecrement() {
+        return currSpawnRateDecrement;
     }
 
     private void ResetAllPipes()
