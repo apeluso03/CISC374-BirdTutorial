@@ -67,35 +67,28 @@ public class LogicScript : MonoBehaviour
 
     private void SaveHighScore()
     {
-        // Get the current high score from PlayerPrefs
-        int currentHighScore = PlayerPrefs.GetInt("HighScore", 0); // Default to 0 if no high score exists
+        int currentHighScore = PlayerPrefs.GetInt("HighScore", 0);
 
-        // Check if the current score is higher than the saved high score
         if (playerScore > currentHighScore)
         {
-            // Save the new high score
             PlayerPrefs.SetInt("HighScore", playerScore);
-            PlayerPrefs.Save(); // Save changes to disk
+            PlayerPrefs.Save();
             Debug.Log("New High Score Saved: " + playerScore);
         }
     }
 
     private void LoadHighScore()
     {
-        // Get the high score from PlayerPrefs
-        int highScore = PlayerPrefs.GetInt("HighScore", 0); // Default to 0 if no high score exists
-
-        // Display the high score (optional)
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
         Debug.Log("Loaded High Score: " + highScore);
     }
 
     public void ResetHighScore()
     {
-        // Reset the high score to 0
-        PlayerPrefs.SetInt("HighScore", 0);
-        PlayerPrefs.Save(); // Save changes to disk
 
-        // Update the UI (if applicable)
+        PlayerPrefs.SetInt("HighScore", 0);
+        PlayerPrefs.Save();
+
         if (highScoreText != null)
         {
             highScoreText.text = "Highscore: 0";
@@ -119,15 +112,19 @@ public class LogicScript : MonoBehaviour
 
     private void IncreaseSpeedSpawned()
     {
-        if (currSpeedIncrement < 5) {
-            currSpeedIncrement += 0.25;
+        float speedIncrement = 0.3f;
+        float spawnRateFactor = 1.5f / 6f; // Ensures both values scale proportionally
+
+        if (currSpeedIncrement < 6) {
+            currSpeedIncrement += speedIncrement;
         }
-        if (currSpawnRateDecrement < 1) {
-            currSpawnRateDecrement += 0.05f;
+        if (currSpawnRateDecrement < 1.5) {
+            currSpawnRateDecrement += speedIncrement * spawnRateFactor; // Maintain proportional scaling
         }
+
         foreach (var pipe in pipes)
         {
-            pipe.moveSpeed += 0.25;
+            pipe.moveSpeed += speedIncrement;
         }
 
         PipeSpawnScript pipeSpawner = FindObjectOfType<PipeSpawnScript>();
@@ -136,6 +133,7 @@ public class LogicScript : MonoBehaviour
             pipeSpawner.UpdateSpawnRate(defaultSpawnRate - currSpawnRateDecrement);
         }
     }
+
 
     public double GetCurrSpeedIncrement() {
         return currSpeedIncrement;
