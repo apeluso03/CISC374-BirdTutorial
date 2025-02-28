@@ -30,7 +30,9 @@ public class BirdScript : MonoBehaviour
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
-        slowMotionCooldownText.text = "Slow Motion Ready!";
+        if (SceneManager.GetActiveScene().name == "Game") {
+            slowMotionCooldownText.text = "Slow Motion Ready!";
+        }
     }
 
     // Update is called once per frame

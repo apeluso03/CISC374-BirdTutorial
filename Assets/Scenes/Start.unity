@@ -970,6 +970,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 793756568948149599, guid: 7e05bf8528327c44fbf90a919c2898f4, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793756568948149599, guid: 7e05bf8528327c44fbf90a919c2898f4, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793756568948149599, guid: 7e05bf8528327c44fbf90a919c2898f4, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2775947875330895997, guid: 7e05bf8528327c44fbf90a919c2898f4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1040,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9107005067542553265, guid: 7e05bf8528327c44fbf90a919c2898f4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
